@@ -33,7 +33,7 @@ void SetupProcessObject(const FunctionCallbackInfo<Value>& args) {
 }
 
 void RunMicrotasks(const FunctionCallbackInfo<Value>& args) {
-  args.GetIsolate()->RunMicrotasks();
+  v8::MicrotasksScope::PerformCheckpoint(args.GetIsolate());
 }
 
 void SetupTraceCategoryState(const FunctionCallbackInfo<Value>& args) {
@@ -129,7 +129,7 @@ void SetupPromises(const FunctionCallbackInfo<Value>& args) {
   NODE_DEFINE_CONSTANT(constants, kPromiseResolveAfterResolved);
   NODE_DEFINE_CONSTANT(constants, kPromiseRejectAfterResolved);
 
-  isolate->SetPromiseRejectCallback(PromiseRejectCallback);
+  //isolate->SetPromiseRejectCallback(PromiseRejectCallback);
   env->set_promise_handler_function(args[0].As<Function>());
 }
 
